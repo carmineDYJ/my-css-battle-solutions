@@ -19,7 +19,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: python3 update_readme.py
 
-    - name: config git info
+    - name: configure git info
       run: |
         git config --global user.email "dyujie@outlook.com"
         git config --global user.name "carmineDYJ"
