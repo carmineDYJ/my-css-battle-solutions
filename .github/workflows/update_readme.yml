@@ -1,0 +1,41 @@
+name: update README.md when push
+on:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: checkout
+      uses: actions/checkout@main
+
+    - name: install dependencies
+      run: |
+        pip3 install PyGithub --user
+
+    - name: run python script
+      env:
+        GITHUB_LOGIN: carmineDYJ
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: python3 update_readme.py
+
+    - name: config git info
+      run: |
+        git config --global user.email "dyujie@outlook.com"
+        git config --global user.name "carmineDYJ"
+
+    - name: commit change
+      run: |
+        git checkout main
+        git add .
+        git commit -m "update README from Github Actions"
+
+    - name: push change
+      env:
+        GITHUB_LOGIN: carmineDYJ
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git push
+
+    - name: done
+      run: echo 'done'
